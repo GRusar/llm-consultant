@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  auth-service:
+    name: Auth Service
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: |
+            auth_service/pyproject.toml
+            auth_service/uv.lock
+
+      - name: Install Auth Service dependencies
+        working-directory: auth_service
+        run: uv sync --all-groups --frozen
+
+      - name: Run Auth Service Ruff
+        working-directory: auth_service
+        run: uv run ruff check
+
+      - name: Run Auth Service tests
+        working-directory: auth_service
+        run: uv run pytest tests/ -v
+
+  bot-service:
+    name: Bot Service
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: |
+            bot_service/pyproject.toml
+            bot_service/uv.lock
+
+      - name: Install Bot Service dependencies
+        working-directory: bot_service
+        run: uv sync --all-groups --frozen
+
+      - name: Run Bot Service Ruff
+        working-directory: bot_service
+        run: uv run ruff check
+
+      - name: Run Bot Service tests
+        working-directory: bot_service
+        run: uv run pytest tests/ -v
