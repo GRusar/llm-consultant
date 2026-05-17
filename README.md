@@ -235,4 +235,4 @@ OPENROUTER_MODEL=mistralai/mistral-7b-instruct:free
 
 ### Тесты
 
-![tests](screenshots/06_tests.png)
+![tests](screenshots/07_tests.png)
