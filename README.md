@@ -157,6 +157,7 @@ cd bot_service  && uv run pytest tests/ -v
 - мок-тесты Bot Service используют `fakeredis` и `respx`
 - обработчики Bot Service проверяют отсутствие токена, невалидный токен,
   удаление истёкшего токена и ошибку публикации задачи в очередь
+- дополнительно: есть github ci на оба компонента
 
 ## Пользовательский сценарий
 
@@ -236,3 +237,4 @@ OPENROUTER_MODEL=mistralai/mistral-7b-instruct:free
 ### Тесты
 
 ![tests](screenshots/07_tests.png)
+Или посмотреть в [CI](https://github.com/GRusar/llm-consultant/actions/workflows/ci.yml)
